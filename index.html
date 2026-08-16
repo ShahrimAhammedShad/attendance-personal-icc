@@ -47,7 +47,6 @@
 <p class="text-gray-500">Choose an option below</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-
 <a href="https://idealcoachingcenter.pro.bd" target="_blank"
 class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-blue-300 cursor-pointer block">
 <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
@@ -57,7 +56,6 @@ class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-bl
 <p class="text-sm text-gray-500 mb-3">Go to idealcoachingcenter.pro.bd</p>
 <span class="text-blue-600 font-semibold text-sm flex items-center gap-1">Open <i data-lucide="external-link" class="w-4 h-4"></i></span>
 </a>
-
 <button onclick="openRollModal('attendance')"
 class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-emerald-300 cursor-pointer text-left w-full">
 <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-4">
@@ -67,7 +65,6 @@ class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-em
 <p class="text-sm text-gray-500 mb-3">View your attendance records</p>
 <span class="text-emerald-600 font-semibold text-sm flex items-center gap-1">Enter Roll <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
 </button>
-
 <button onclick="openRollModal('payment')"
 class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-violet-300 cursor-pointer text-left w-full">
 <div class="w-12 h-12 bg-violet-50 rounded-lg flex items-center justify-center mb-4">
@@ -77,7 +74,6 @@ class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-vi
 <p class="text-sm text-gray-500 mb-3">Check your fee payments</p>
 <span class="text-violet-600 font-semibold text-sm flex items-center gap-1">Enter Roll <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
 </button>
-
 <a href="https://iccresult.pro.bd/" target="_blank"
 class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-orange-300 cursor-pointer block">
 <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mb-4">
@@ -87,7 +83,6 @@ class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-or
 <p class="text-sm text-gray-500 mb-3">Go to iccresult.pro.bd</p>
 <span class="text-orange-600 font-semibold text-sm flex items-center gap-1">Open <i data-lucide="external-link" class="w-4 h-4"></i></span>
 </a>
-
 <a href="http://shad.iam.bd/" target="_blank"
 class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-gray-400 cursor-pointer block">
 <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
@@ -97,7 +92,6 @@ class="card-hover bg-white rounded-xl p-7 border border-gray-200 hover:border-gr
 <p class="text-sm text-gray-500 mb-3">Visit shad.iam.bd</p>
 <span class="text-gray-600 font-semibold text-sm flex items-center gap-1">Open <i data-lucide="external-link" class="w-4 h-4"></i></span>
 </a>
-
 </div>
 </div>
 </div>
@@ -117,7 +111,7 @@ class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-lg font-se
 </div>
 </div>
 
-<!-- ATTENDANCE PAGE -->
+<!-- ===== ATTENDANCE PAGE ===== -->
 <div id="attendancePage" class="hidden flex-grow flex-col">
 <div class="bg-white border-b sticky top-0 z-40">
 <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -136,6 +130,17 @@ class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-lg font-se
 <h3 class="text-xl font-bold" id="attName"></h3>
 <p class="text-slate-300 text-sm" id="attInfo"></p>
 </div>
+
+<!-- ✨ LAST ATTENDANCE STATUS (BIG CARD) -->
+<div id="lastAttCard" class="rounded-xl p-6 border-2 text-center">
+<div class="flex items-center justify-center gap-3 mb-2">
+<i data-lucide="calendar-clock" class="w-6 h-6" id="lastAttIcon"></i>
+<h4 class="text-sm font-semibold uppercase tracking-wide" id="lastAttLabel">Last Attendance</h4>
+</div>
+<p class="text-4xl font-extrabold mb-1" id="lastAttStatus">-</p>
+<p class="text-sm font-medium" id="lastAttDate">-</p>
+</div>
+
 <!-- Overall Stats -->
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
 <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
@@ -156,11 +161,11 @@ class="w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-lg font-se
 </div>
 </div>
 
-<!-- ✨ MONTHLY BREAKDOWN -->
+<!-- Monthly Summary -->
 <div class="bg-white rounded-xl border border-gray-200 p-5">
 <h4 class="font-bold text-gray-700 mb-4 flex items-center gap-2">
 <i data-lucide="calendar-range" class="w-5 h-5 text-slate-600"></i>
-Monthly Summary (1st to End)
+Monthly Summary
 </h4>
 <div id="monthlySummary" class="space-y-3"></div>
 </div>
@@ -187,7 +192,7 @@ Monthly Summary (1st to End)
 </div>
 </div>
 
-<!-- PAYMENT PAGE -->
+<!-- ===== PAYMENT PAGE ===== -->
 <div id="paymentPage" class="hidden flex-grow flex-col">
 <div class="bg-white border-b sticky top-0 z-40">
 <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -201,12 +206,10 @@ Monthly Summary (1st to End)
 </div>
 </div>
 <div class="max-w-5xl mx-auto px-4 py-6 space-y-5 flex-grow">
-<!-- Student Info -->
 <div class="bg-slate-800 rounded-xl p-5 text-white">
 <h3 class="text-xl font-bold" id="payName"></h3>
 <p class="text-slate-300 text-sm" id="payInfo"></p>
 </div>
-<!-- Payment Stats -->
 <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
 <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
 <p class="text-2xl font-bold text-emerald-600" id="payTotal">৳0</p>
@@ -221,7 +224,6 @@ Monthly Summary (1st to End)
 <p class="text-gray-400 text-xs font-semibold uppercase">This Month</p>
 </div>
 </div>
-<!-- Table -->
 <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
 <table class="min-w-full text-sm">
 <thead class="bg-gray-50"><tr>
@@ -329,6 +331,50 @@ document.getElementById('attTable').innerHTML = '<tr><td colspan="3" class="text
 lucide.createIcons();
 }
 
+// ✨ RENDER LAST ATTENDANCE STATUS
+function renderLastAttendance() {
+const card = document.getElementById('lastAttCard');
+const statusEl = document.getElementById('lastAttStatus');
+const dateEl = document.getElementById('lastAttDate');
+const labelEl = document.getElementById('lastAttLabel');
+
+if (attRecords.length === 0) {
+card.className = 'rounded-xl p-6 border-2 text-center bg-gray-50 border-gray-200';
+statusEl.textContent = 'No Records';
+statusEl.className = 'text-3xl font-extrabold mb-1 text-gray-400';
+dateEl.textContent = 'No attendance entries found';
+dateEl.className = 'text-sm font-medium text-gray-400';
+return;
+}
+
+const lastRecord = attRecords[0]; // Already sorted descending
+const lastDate = new Date(lastRecord.date);
+const formattedDate = lastDate.toLocaleDateString('en', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+if (lastRecord.status === 'Present') {
+card.className = 'rounded-xl p-6 border-2 text-center bg-emerald-50 border-emerald-300';
+statusEl.textContent = '✓ PRESENT';
+statusEl.className = 'text-4xl font-extrabold mb-1 text-emerald-600';
+dateEl.textContent = formattedDate;
+dateEl.className = 'text-sm font-medium text-emerald-500';
+labelEl.className = 'text-sm font-semibold uppercase tracking-wide text-emerald-500';
+} else if (lastRecord.status === 'Late') {
+card.className = 'rounded-xl p-6 border-2 text-center bg-amber-50 border-amber-300';
+statusEl.textContent = '⚠ LATE';
+statusEl.className = 'text-4xl font-extrabold mb-1 text-amber-600';
+dateEl.textContent = formattedDate;
+dateEl.className = 'text-sm font-medium text-amber-500';
+labelEl.className = 'text-sm font-semibold uppercase tracking-wide text-amber-500';
+} else {
+card.className = 'rounded-xl p-6 border-2 text-center bg-red-50 border-red-300';
+statusEl.textContent = '✗ ABSENT';
+statusEl.className = 'text-4xl font-extrabold mb-1 text-red-600';
+dateEl.textContent = formattedDate;
+dateEl.className = 'text-sm font-medium text-red-500';
+labelEl.className = 'text-sm font-semibold uppercase tracking-wide text-red-500';
+}
+}
+
 function renderAttendance() {
 const total = attRecords.length;
 const presents = attRecords.filter(r => r.status === 'Present').length;
@@ -340,7 +386,10 @@ document.getElementById('attLate').textContent = lates;
 document.getElementById('attAbsent').textContent = absents;
 document.getElementById('attRate').textContent = rate + '%';
 
-// ✨ MONTHLY SUMMARY
+// ✨ Show Last Attendance
+renderLastAttendance();
+
+// Monthly Summary
 renderMonthlySummary();
 
 // Daily grid
@@ -371,37 +420,29 @@ table.innerHTML += '<tr class="hover:bg-gray-50"><td class="px-5 py-3 font-mediu
 if (attRecords.length === 0) table.innerHTML = '<tr><td colspan="3" class="text-center py-6 text-gray-400">No records.</td></tr>';
 }
 
-// ✨ MONTHLY SUMMARY FUNCTION
 function renderMonthlySummary() {
 const container = document.getElementById('monthlySummary');
 container.innerHTML = '';
 if (attRecords.length === 0) { container.innerHTML = '<p class="text-gray-400 text-center py-4">No records.</p>'; return; }
-
-// Group by month
 const months = {};
 attRecords.forEach(r => {
-const monthKey = r.date.substring(0, 7); // YYYY-MM
+const monthKey = r.date.substring(0, 7);
 if (!months[monthKey]) months[monthKey] = { present: 0, late: 0, absent: 0, total: 0 };
 months[monthKey].total++;
 if (r.status === 'Present') months[monthKey].present++;
 else if (r.status === 'Late') months[monthKey].late++;
 else months[monthKey].absent++;
 });
-
-// Sort months descending
 const sortedMonths = Object.keys(months).sort((a, b) => b.localeCompare(a));
-
 sortedMonths.forEach(monthKey => {
 const data = months[monthKey];
 const attended = data.present + data.late;
 const rate = data.total > 0 ? ((attended / data.total) * 100).toFixed(0) : 0;
 const monthName = new Date(monthKey + '-01').toLocaleString('en', { month: 'long', year: 'numeric' });
-
 let rateColor = 'text-emerald-600';
 let barColor = 'bg-emerald-500';
 if (rate < 60) { rateColor = 'text-red-600'; barColor = 'bg-red-500'; }
 else if (rate < 80) { rateColor = 'text-amber-600'; barColor = 'bg-amber-500'; }
-
 container.innerHTML += `
 <div class="border border-gray-100 rounded-lg p-4 hover:bg-gray-50 transition">
 <div class="flex items-center justify-between mb-2">
@@ -447,16 +488,12 @@ lucide.createIcons();
 function renderPayments() {
 const totalPaid = payRecords.reduce((s, p) => s + (p.amount || 0), 0);
 document.getElementById('payTotal').textContent = '৳' + totalPaid.toLocaleString();
-
-// ✨ CURRENT MONTH STATUS WITH PARTIAL DETECTION
 const curMonth = new Date().toISOString().substring(0, 7);
 const monthlyFee = currentStudent.monthlyFee || 1500;
 const monthPayments = payRecords.filter(p => p.month === curMonth);
 const monthPaid = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
-
 const statusEl = document.getElementById('payStatus');
 const statusCard = document.getElementById('payStatusCard');
-
 if (monthPaid === 0) {
 statusEl.textContent = 'DUE';
 statusEl.className = 'text-2xl font-bold text-red-600';
@@ -470,8 +507,6 @@ statusEl.textContent = 'PARTIALLY PAID';
 statusEl.className = 'text-xl font-bold text-amber-600';
 statusCard.className = 'bg-amber-50 border border-amber-200 rounded-xl p-4 text-center';
 }
-
-// Table
 const table = document.getElementById('payTable');
 table.innerHTML = '';
 if (payRecords.length === 0) {
@@ -481,12 +516,8 @@ return;
 payRecords.forEach(p => {
 const d = p.paymentDate ? new Date(p.paymentDate) : null;
 const fDate = d ? d.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A';
-
-// ✨ STATUS DETECTION
 let statusText = p.status || 'Paid';
 let badge = 'bg-emerald-100 text-emerald-700';
-const monthlyFee = currentStudent.monthlyFee || 1500;
-
 if (p.feeType === 'Tuition Fee' && p.amount < monthlyFee) {
 statusText = 'Partially Paid';
 badge = 'bg-amber-100 text-amber-700';
@@ -497,7 +528,6 @@ badge = 'bg-amber-100 text-amber-700';
 statusText = 'Unpaid';
 badge = 'bg-red-100 text-red-700';
 }
-
 table.innerHTML += '<tr class="hover:bg-gray-50"><td class="px-5 py-3 font-medium">' + (p.month || 'N/A') + '</td><td class="px-5 py-3 text-gray-600">' + fDate + '</td><td class="px-5 py-3 text-center font-bold">৳' + (p.amount || 0) + '</td><td class="px-5 py-3 text-gray-600">' + (p.feeType || 'Tuition') + '</td><td class="px-5 py-3 text-center"><span class="px-3 py-1 text-xs font-semibold rounded-full ' + badge + '">' + statusText + '</span></td></tr>';
 });
 }
