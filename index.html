@@ -1,748 +1,199 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#ffffff">
-<title>Student Portal - Ideal Coaching Center</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
-<style>
-* {
-  font-family: 'Inter', sans-serif;
-  -webkit-tap-highlight-color: transparent;
-}
-html { -webkit-text-size-adjust: 100%; }
-body {
-  overscroll-behavior-y: contain;
-  padding-top: env(safe-area-inset-top);
-}
-input, select, textarea { font-size: 16px !important; }
-
-.card-hover { transition: all 0.2s ease; }
-.card-hover:active { transform: scale(0.97); opacity: 0.9; }
-
-.fade-in { animation: fadeIn 0.3s ease-out forwards; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-.slide-up { animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-.spinner { animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-
-.safe-bottom { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaharim Ahammed Shad — Coming Soon</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-50 min-h-full flex flex-col">
-
-<!-- ===== HEADER ===== -->
-<header class="bg-white/95 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-40">
-<div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-<div class="flex items-center gap-2.5">
-<div class="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0">
-<i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
-</div>
-<div class="leading-tight">
-<h1 class="text-base font-bold text-gray-900">Student Portal</h1>
-<p class="text-[10px] text-gray-500 font-medium">Ideal Coaching Center</p>
-</div>
-</div>
-<a href="https://idealcoachingcenter.pro.bd" target="_blank"
-class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-2 rounded-lg flex items-center gap-1 min-h-[36px]">
-<i data-lucide="globe" class="w-3.5 h-3.5"></i> Website
-</a>
-</div>
-</header>
-
-<!-- ===== HOMEPAGE ===== -->
-<div id="homePage" class="flex-grow">
-<div class="max-w-5xl mx-auto px-4 py-6 sm:py-10">
-<div class="text-center mb-6 sm:mb-10 fade-in">
-<h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-1">Welcome</h2>
-<p class="text-gray-500 text-sm sm:text-base">Select an option to continue</p>
-</div>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-
-<!-- 1. Visit Main Website -->
-<a href="https://idealcoachingcenter.pro.bd" target="_blank"
-class="card-hover bg-white rounded-xl p-5 border border-gray-200 active:border-blue-400 cursor-pointer block fade-in">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-<i data-lucide="globe" class="w-6 h-6 text-blue-600"></i>
-</div>
-<div class="flex-1 min-w-0">
-<h3 class="text-base font-bold text-gray-900">Main Website</h3>
-<p class="text-xs text-gray-500 truncate">idealcoachingcenter.pro.bd</p>
-</div>
-<i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-</div>
-</a>
-
-<!-- 2. See Attendance -->
-<button onclick="openRollModal('attendance')"
-class="card-hover bg-white rounded-xl p-5 border border-gray-200 active:border-emerald-400 cursor-pointer text-left w-full fade-in">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center flex-shrink-0">
-<i data-lucide="calendar-check" class="w-6 h-6 text-emerald-600"></i>
-</div>
-<div class="flex-1 min-w-0 text-left">
-<h3 class="text-base font-bold text-gray-900">Attendance</h3>
-<p class="text-xs text-gray-500">View your records</p>
-</div>
-<i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-</div>
-</button>
-
-<!-- 3. Payment Status -->
-<button onclick="openRollModal('payment')"
-class="card-hover bg-white rounded-xl p-5 border border-gray-200 active:border-violet-400 cursor-pointer text-left w-full fade-in">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center flex-shrink-0">
-<i data-lucide="wallet" class="w-6 h-6 text-violet-600"></i>
-</div>
-<div class="flex-1 min-w-0 text-left">
-<h3 class="text-base font-bold text-gray-900">Payments</h3>
-<p class="text-xs text-gray-500">Check fee status</p>
-</div>
-<i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-</div>
-</button>
-
-<!-- 4. See Results -->
-<a href="https://iccresult.pro.bd/" target="_blank"
-class="card-hover bg-white rounded-xl p-5 border border-gray-200 active:border-orange-400 cursor-pointer block fade-in">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0">
-<i data-lucide="award" class="w-6 h-6 text-orange-600"></i>
-</div>
-<div class="flex-1 min-w-0">
-<h3 class="text-base font-bold text-gray-900">Results</h3>
-<p class="text-xs text-gray-500">iccresult.pro.bd</p>
-</div>
-<i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-</div>
-</a>
-
-<!-- 5. Admin / Developer -->
-<a href="http://shad.iam.bd/" target="_blank"
-class="card-hover bg-white rounded-xl p-5 border border-gray-200 active:border-gray-400 cursor-pointer block fade-in">
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center flex-shrink-0">
-<i data-lucide="user-cog" class="w-6 h-6 text-gray-600"></i>
-</div>
-<div class="flex-1 min-w-0">
-<h3 class="text-base font-bold text-gray-900">Developer</h3>
-<p class="text-xs text-gray-500">shad.iam.bd</p>
-</div>
-<i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
-</div>
-</a>
-
-</div>
-</div>
-</div>
-
-<!-- ===== ROLL MODAL (Bottom Sheet on Mobile) ===== -->
-<div id="rollModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4">
-<div class="bg-white w-full sm:max-w-sm sm:rounded-2xl rounded-t-3xl shadow-2xl p-6 safe-bottom slide-up">
-<div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-4 sm:hidden"></div>
-<div class="flex justify-between items-center mb-4">
-<h3 id="modalTitle" class="text-lg font-bold text-gray-900">Enter Roll</h3>
-<button onclick="closeModal()" class="text-gray-400 p-2 -mr-2"><i data-lucide="x" class="w-6 h-6"></i></button>
-</div>
-<input type="text" id="rollInput" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="6-digit roll"
-class="w-full px-4 h-14 border-2 border-gray-200 rounded-xl text-xl font-bold tracking-[0.5em] text-center outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 mb-3">
-<p id="modalError" class="text-red-500 text-sm mb-3 hidden font-medium text-center"></p>
-<button id="modalSubmitBtn" onclick="submitRoll()"
-class="w-full h-14 bg-slate-900 active:bg-slate-800 text-white rounded-xl font-bold transition shadow-lg flex items-center justify-center gap-2 text-base">
-<span>Continue</span>
-</button>
-</div>
-</div>
-
-<!-- ===== LOADING OVERLAY ===== -->
-<div id="loadingOverlay" class="fixed inset-0 z-[70] hidden items-center justify-center bg-white/80 backdrop-blur-sm">
-<div class="text-center">
-<div class="w-12 h-12 border-4 border-slate-200 border-t-slate-700 rounded-full spinner mx-auto mb-3"></div>
-<p class="text-slate-600 font-semibold text-sm">Loading...</p>
-</div>
-</div>
-
-<!-- ===== ATTENDANCE PAGE ===== -->
-<div id="attendancePage" class="hidden flex-grow flex-col">
-<div class="bg-white border-b sticky top-[57px] z-30">
-<div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-<button onclick="goHome()" class="flex items-center gap-1 text-gray-600 font-semibold min-h-[40px] px-2 -ml-2">
-<i data-lucide="chevron-left" class="w-6 h-6"></i> <span class="text-sm">Back</span>
-</button>
-<h2 class="text-base font-bold text-gray-900">Attendance</h2>
-<button onclick="exportAttPDF()" class="bg-slate-900 active:bg-slate-800 text-white px-3 h-10 rounded-lg text-sm font-semibold flex items-center gap-1.5">
-<i data-lucide="download" class="w-4 h-4"></i> PDF
-</button>
-</div>
-</div>
-
-<div class="max-w-5xl mx-auto px-4 py-4 sm:py-6 space-y-4 flex-grow">
-
-<!-- Student Info -->
-<div class="bg-slate-900 rounded-xl p-4 sm:p-5 text-white fade-in">
-<h3 class="text-lg font-bold" id="attName"></h3>
-<p class="text-slate-400 text-xs mt-1" id="attInfo"></p>
-</div>
-
-<!-- LAST ATTENDANCE STATUS (BIG CARD) -->
-<div id="lastAttCard" class="rounded-xl p-5 border-2 text-center fade-in">
-<div class="flex items-center justify-center gap-2 mb-1">
-<i data-lucide="calendar-clock" class="w-5 h-5"></i>
-<h4 class="text-xs font-bold uppercase tracking-wider" id="lastAttLabel">Last Attendance</h4>
-</div>
-<p class="text-3xl sm:text-4xl font-black mb-0.5" id="lastAttStatus">-</p>
-<p class="text-xs font-medium" id="lastAttDate">-</p>
-</div>
-
-<!-- Stats -->
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-2xl sm:text-3xl font-black text-emerald-600" id="attPresent">0</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Present</p>
-</div>
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-2xl sm:text-3xl font-black text-amber-600" id="attLate">0</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Late</p>
-</div>
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-2xl sm:text-3xl font-black text-red-600" id="attAbsent">0</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Absent</p>
-</div>
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-2xl sm:text-3xl font-black text-slate-800" id="attRate">0%</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Rate</p>
-</div>
-</div>
-
-<!-- Monthly Summary -->
-<div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 fade-in">
-<h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2 text-sm">
-<i data-lucide="calendar-range" class="w-4 h-4 text-slate-600"></i> Monthly Summary
-</h4>
-<div id="monthlySummary" class="space-y-3"></div>
-</div>
-
-<!-- Daily Grid -->
-<div class="bg-white rounded-xl p-4 sm:p-5 border border-gray-200 fade-in">
-<h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2 text-sm">
-<i data-lucide="layout-grid" class="w-4 h-4 text-slate-600"></i> Daily View
-</h4>
-<div class="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-1.5 sm:gap-2" id="dailyGrid"></div>
-</div>
-
-<!-- Table -->
-<div class="bg-white rounded-xl border border-gray-200 overflow-hidden fade-in">
-<div class="overflow-x-auto scrollbar-hide -webkit-overflow-scrolling-touch">
-<table class="min-w-full text-sm">
-<thead class="bg-gray-50"><tr>
-<th class="px-4 py-3 text-left font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Date</th>
-<th class="px-4 py-3 text-left font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Day</th>
-<th class="px-4 py-3 text-center font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Status</th>
-</tr></thead>
-<tbody id="attTable" class="divide-y divide-gray-100"></tbody>
-</table>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- ===== PAYMENT PAGE ===== -->
-<div id="paymentPage" class="hidden flex-grow flex-col">
-<div class="bg-white border-b sticky top-[57px] z-30">
-<div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-<button onclick="goHome()" class="flex items-center gap-1 text-gray-600 font-semibold min-h-[40px] px-2 -ml-2">
-<i data-lucide="chevron-left" class="w-6 h-6"></i> <span class="text-sm">Back</span>
-</button>
-<h2 class="text-base font-bold text-gray-900">Payments</h2>
-<button onclick="exportPayPDF()" class="bg-slate-900 active:bg-slate-800 text-white px-3 h-10 rounded-lg text-sm font-semibold flex items-center gap-1.5">
-<i data-lucide="download" class="w-4 h-4"></i> PDF
-</button>
-</div>
-</div>
-
-<div class="max-w-5xl mx-auto px-4 py-4 sm:py-6 space-y-4 flex-grow">
-
-<!-- Student Info -->
-<div class="bg-slate-900 rounded-xl p-4 sm:p-5 text-white fade-in">
-<h3 class="text-lg font-bold" id="payName"></h3>
-<p class="text-slate-400 text-xs mt-1 leading-relaxed" id="payInfo"></p>
-</div>
-
-<!-- Cycle Not Started Banner -->
-<div id="cycleNotStartedBanner" class="hidden bg-blue-50 border-2 border-blue-200 rounded-xl p-4 text-center fade-in">
-<div class="flex items-center justify-center gap-2 mb-1">
-<i data-lucide="info" class="w-4 h-4 text-blue-600"></i>
-<h4 class="font-bold text-blue-700 text-sm">Cycle Not Started</h4>
-</div>
-<p class="text-xs text-blue-600" id="cycleStartInfo"></p>
-</div>
-
-<!-- Payment Stats -->
-<div class="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-xl sm:text-2xl font-black text-emerald-600" id="payTotal">৳0</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Total Paid</p>
-</div>
-<div class="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 text-center fade-in">
-<p class="text-xl sm:text-2xl font-black text-blue-600" id="payMonthly">৳0</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">Monthly Fee</p>
-</div>
-<div class="col-span-2 lg:col-span-1 rounded-xl p-3 sm:p-4 text-center border-2" id="payStatusCard">
-<p class="text-xl sm:text-2xl font-black" id="payStatus">-</p>
-<p class="text-[10px] sm:text-xs text-gray-500 font-bold uppercase mt-0.5">This Month</p>
-</div>
-</div>
-
-<!-- Payment Table -->
-<div class="bg-white rounded-xl border border-gray-200 overflow-hidden fade-in">
-<div class="overflow-x-auto scrollbar-hide -webkit-overflow-scrolling-touch">
-<table class="min-w-full text-sm">
-<thead class="bg-gray-50"><tr>
-<th class="px-4 py-3 text-left font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Month</th>
-<th class="px-4 py-3 text-left font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Date</th>
-<th class="px-4 py-3 text-center font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Amount</th>
-<th class="px-4 py-3 text-left font-bold text-gray-500 text-xs uppercase whitespace-nowrap hidden sm:table-cell">Type</th>
-<th class="px-4 py-3 text-center font-bold text-gray-500 text-xs uppercase whitespace-nowrap">Status</th>
-</tr></thead>
-<tbody id="payTable" class="divide-y divide-gray-100"></tbody>
-</table>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="bg-slate-900 text-slate-400 py-4 text-center text-xs mt-auto safe-bottom">
-<p>© 2026 Ideal Coaching Center</p>
-<p class="mt-1">Developed by <a href="http://shad.iam.bd/" target="_blank" class="text-slate-300 hover:text-white font-semibold">Shahrim Ahammed Shad</a></p>
-</footer>
-
-<script>
-// ==========================================
-// FIREBASE CONFIG
-// ==========================================
-const firebaseConfig = {
-apiKey: "AIzaSyCYKiRqkuyKyk6vELYSAuxMviT-owg_DiY",
-authDomain: "attendance-64352.firebaseapp.com",
-projectId: "attendance-64352",
-storageBucket: "attendance-64352.firebasestorage.app",
-messagingSenderId: "625341651770",
-appId: "1:625341651770:web:6e644bad3641532c33ce03"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-let pendingAction = '';
-let currentStudent = null;
-let attRecords = [];
-let payRecords = [];
-
-document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
-
-// ==========================================
-// ROLL MODAL — FIXED
-// ==========================================
-function openRollModal(action) {
-    pendingAction = action;
-    document.getElementById('rollInput').value = '';
-    document.getElementById('modalError').classList.add('hidden');
-    document.getElementById('modalTitle').textContent = action === 'attendance' ? 'View Attendance' : 'View Payments';
-    const modal = document.getElementById('rollModal');
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    setTimeout(() => document.getElementById('rollInput').focus(), 300);
-}
-
-function closeModal() {
-    document.getElementById('rollModal').classList.add('hidden');
-    document.getElementById('rollModal').classList.remove('flex');
-}
-
-document.getElementById('rollInput').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') submitRoll();
-});
-
-// ✅ FIXED: pendingAction আগে save করি, তারপর মোডাল বন্ধ করি
-async function submitRoll() {
-    const roll = document.getElementById('rollInput').value.trim();
-    const errEl = document.getElementById('modalError');
-    const btn = document.getElementById('modalSubmitBtn');
-
-    if (roll.length !== 6 || isNaN(roll)) {
-        errEl.textContent = 'Roll must be exactly 6 digits.';
-        errEl.classList.remove('hidden');
-        return;
-    }
-
-    errEl.classList.add('hidden');
-    btn.innerHTML = '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Loading...</span>';
-    btn.disabled = true;
-
-    try {
-        const doc = await db.collection('students').doc(roll).get();
-        if (!doc.exists) {
-            errEl.textContent = 'No student found with this roll.';
-            errEl.classList.remove('hidden');
-            return;
-        }
-
-        currentStudent = { roll: roll, ...doc.data() };
-
-        // ✅ আগেই নিয়ে নিই
-        const action = pendingAction;
-        pendingAction = '';
-
-        // মোডাল বন্ধ করি
-        document.getElementById('rollModal').classList.add('hidden');
-        document.getElementById('rollModal').classList.remove('flex');
-
-        // ✅ এখন সঠিক পেজে যাই
-        if (action === 'attendance') await showAttendancePage();
-        else if (action === 'payment') await showPaymentPage();
-
-    } catch (err) {
-        errEl.textContent = 'Error: ' + err.message;
-        errEl.classList.remove('hidden');
-    } finally {
-        btn.innerHTML = '<span>Continue</span>';
-        btn.disabled = false;
-    }
-}
-
-function goHome() {
-    document.getElementById('homePage').style.display = '';
-    document.getElementById('attendancePage').style.display = 'none';
-    document.getElementById('attendancePage').classList.remove('flex');
-    document.getElementById('paymentPage').style.display = 'none';
-    document.getElementById('paymentPage').classList.remove('flex');
-    currentStudent = null; attRecords = []; payRecords = [];
-    window.scrollTo(0, 0);
-}
-
-function showLoading() {
-    document.getElementById('loadingOverlay').classList.remove('hidden');
-    document.getElementById('loadingOverlay').classList.add('flex');
-}
-function hideLoading() {
-    document.getElementById('loadingOverlay').classList.add('hidden');
-    document.getElementById('loadingOverlay').classList.remove('flex');
-}
-
-// ==========================================
-// HELPER FUNCTIONS
-// ==========================================
-function getMonthlyFee(student) {
-    if (student.monthlyFee !== undefined && student.monthlyFee !== null && student.monthlyFee !== '') {
-        return Number(student.monthlyFee);
-    }
-    return 0;
-}
-
-function isCycleStarted(student) {
-    if (!student.startDate) return true;
-    const startDate = new Date(student.startDate);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    startDate.setHours(0, 0, 0, 0);
-    return startDate <= today;
-}
-
-// ==========================================
-// ATTENDANCE PAGE
-// ==========================================
-async function showAttendancePage() {
-    showLoading();
-    document.getElementById('homePage').style.display = 'none';
-    document.getElementById('paymentPage').style.display = 'none';
-    document.getElementById('paymentPage').classList.remove('flex');
-    document.getElementById('attendancePage').style.display = 'flex';
-    document.getElementById('attendancePage').classList.add('flex');
-    window.scrollTo(0, 0);
-
-    document.getElementById('attName').textContent = currentStudent.name;
-    document.getElementById('attInfo').textContent = 'Roll: ' + currentStudent.roll + ' | ' + currentStudent.session;
-
-    try {
-        const snap = await db.collection('attendance').where('roll', '==', currentStudent.roll).get();
-        attRecords = [];
-        snap.forEach(d => attRecords.push(d.data()));
-        attRecords.sort((a, b) => b.date.localeCompare(a.date));
-        renderAttendance();
-    } catch (err) {
-        document.getElementById('attTable').innerHTML = '<tr><td colspan="3" class="text-center py-6 text-red-500">Error: ' + err.message + '</td></tr>';
-    }
-    hideLoading();
-    lucide.createIcons();
-}
-
-function renderLastAttendance() {
-    const card = document.getElementById('lastAttCard');
-    const statusEl = document.getElementById('lastAttStatus');
-    const dateEl = document.getElementById('lastAttDate');
-
-    if (attRecords.length === 0) {
-        card.className = 'rounded-xl p-5 border-2 text-center bg-gray-50 border-gray-200 fade-in';
-        statusEl.textContent = 'No Records';
-        statusEl.className = 'text-2xl font-black mb-1 text-gray-400';
-        dateEl.textContent = 'No attendance entries found';
-        dateEl.className = 'text-xs font-medium text-gray-400';
-        return;
-    }
-
-    const lastRecord = attRecords[0];
-    const lastDate = new Date(lastRecord.date);
-    const formattedDate = lastDate.toLocaleDateString('en', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-
-    if (lastRecord.status === 'Present') {
-        card.className = 'rounded-xl p-5 border-2 text-center bg-emerald-50 border-emerald-200 fade-in';
-        statusEl.textContent = '✓ PRESENT';
-        statusEl.className = 'text-3xl sm:text-4xl font-black mb-1 text-emerald-600';
-        dateEl.textContent = formattedDate;
-        dateEl.className = 'text-xs font-medium text-emerald-600';
-    } else if (lastRecord.status === 'Late') {
-        card.className = 'rounded-xl p-5 border-2 text-center bg-amber-50 border-amber-200 fade-in';
-        statusEl.textContent = '⚠ LATE';
-        statusEl.className = 'text-3xl sm:text-4xl font-black mb-1 text-amber-600';
-        dateEl.textContent = formattedDate;
-        dateEl.className = 'text-xs font-medium text-amber-600';
-    } else {
-        card.className = 'rounded-xl p-5 border-2 text-center bg-red-50 border-red-200 fade-in';
-        statusEl.textContent = '✗ ABSENT';
-        statusEl.className = 'text-3xl sm:text-4xl font-black mb-1 text-red-600';
-        dateEl.textContent = formattedDate;
-        dateEl.className = 'text-xs font-medium text-red-600';
-    }
-}
-
-function renderAttendance() {
-    const total = attRecords.length;
-    const presents = attRecords.filter(r => r.status === 'Present').length;
-    const lates = attRecords.filter(r => r.status === 'Late').length;
-    const absents = attRecords.filter(r => r.status === 'Absent').length;
-    const rate = total > 0 ? (((presents + lates) / total) * 100).toFixed(1) : '0.0';
-
-    document.getElementById('attPresent').textContent = presents;
-    document.getElementById('attLate').textContent = lates;
-    document.getElementById('attAbsent').textContent = absents;
-    document.getElementById('attRate').textContent = rate + '%';
-
-    renderLastAttendance();
-    renderMonthlySummary();
-
-    const grid = document.getElementById('dailyGrid');
-    grid.innerHTML = '';
-    attRecords.slice(0, 30).forEach(r => {
-        const d = new Date(r.date);
-        let bg, tc, label;
-        if (r.status === 'Present') { bg = 'bg-emerald-50 border-emerald-200'; tc = 'text-emerald-700'; label = 'P'; }
-        else if (r.status === 'Late') { bg = 'bg-amber-50 border-amber-200'; tc = 'text-amber-700'; label = 'L'; }
-        else { bg = 'bg-red-50 border-red-200'; tc = 'text-red-700'; label = 'A'; }
-        grid.innerHTML += '<div class="' + bg + ' border rounded-lg p-2 text-center"><div class="text-base sm:text-lg font-black ' + tc + '">' + d.getDate() + '</div><div class="text-[9px] sm:text-[10px] ' + tc + ' font-bold uppercase">' + d.toLocaleString('en',{month:'short'}) + '</div><div class="text-[10px] sm:text-xs font-black ' + tc + '">' + label + '</div></div>';
-    });
-    if (attRecords.length === 0) grid.innerHTML = '<p class="col-span-full text-center text-gray-400 py-6 text-sm">No records.</p>';
-
-    const table = document.getElementById('attTable');
-    table.innerHTML = '';
-    attRecords.forEach(r => {
-        const d = new Date(r.date);
-        const day = d.toLocaleString('en', { weekday: 'short' });
-        const fDate = d.toLocaleDateString('en', { month: 'short', day: 'numeric', year: 'numeric' });
-        let badge = 'bg-red-100 text-red-700';
-        if (r.status === 'Present') badge = 'bg-emerald-100 text-emerald-700';
-        else if (r.status === 'Late') badge = 'bg-amber-100 text-amber-700';
-        table.innerHTML += '<tr><td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap">' + fDate + '</td><td class="px-4 py-3 text-gray-500 whitespace-nowrap">' + day + '</td><td class="px-4 py-3 text-center"><span class="px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-full ' + badge + '">' + r.status + '</span></td></tr>';
-    });
-    if (attRecords.length === 0) table.innerHTML = '<tr><td colspan="3" class="text-center py-6 text-gray-400 text-sm">No records.</td></tr>';
-}
-
-function renderMonthlySummary() {
-    const container = document.getElementById('monthlySummary');
-    container.innerHTML = '';
-    if (attRecords.length === 0) { container.innerHTML = '<p class="text-gray-400 text-center py-4 text-sm">No records.</p>'; return; }
-
-    const months = {};
-    attRecords.forEach(r => {
-        const monthKey = r.date.substring(0, 7);
-        if (!months[monthKey]) months[monthKey] = { present: 0, late: 0, absent: 0, total: 0 };
-        months[monthKey].total++;
-        if (r.status === 'Present') months[monthKey].present++;
-        else if (r.status === 'Late') months[monthKey].late++;
-        else months[monthKey].absent++;
-    });
-
-    const sortedMonths = Object.keys(months).sort((a, b) => b.localeCompare(a));
-    sortedMonths.forEach(monthKey => {
-        const data = months[monthKey];
-        const attended = data.present + data.late;
-        const rate = data.total > 0 ? ((attended / data.total) * 100).toFixed(0) : 0;
-        const monthName = new Date(monthKey + '-01').toLocaleString('en', { month: 'long', year: 'numeric' });
-        let rateColor = 'text-emerald-600', barColor = 'bg-emerald-500';
-        if (rate < 60) { rateColor = 'text-red-600'; barColor = 'bg-red-500'; }
-        else if (rate < 80) { rateColor = 'text-amber-600'; barColor = 'bg-amber-500'; }
-        container.innerHTML += '<div class="border border-gray-100 rounded-lg p-3 sm:p-4 bg-gray-50/50"><div class="flex items-center justify-between mb-2"><h5 class="font-bold text-gray-800 text-sm">' + monthName + '</h5><span class="text-sm font-black ' + rateColor + '">' + rate + '%</span></div><div class="w-full bg-gray-200 h-1.5 rounded-full mb-3 overflow-hidden"><div class="' + barColor + ' h-1.5 rounded-full" style="width: ' + rate + '%"></div></div><div class="grid grid-cols-4 gap-2 text-center"><div><p class="text-base sm:text-lg font-black text-gray-900">' + attended + '</p><p class="text-[9px] sm:text-[10px] text-gray-500 uppercase font-bold">Attended</p></div><div><p class="text-base sm:text-lg font-black text-emerald-600">' + data.present + '</p><p class="text-[9px] sm:text-[10px] text-gray-500 uppercase font-bold">Present</p></div><div><p class="text-base sm:text-lg font-black text-amber-600">' + data.late + '</p><p class="text-[9px] sm:text-[10px] text-gray-500 uppercase font-bold">Late</p></div><div><p class="text-base sm:text-lg font-black text-red-600">' + data.absent + '</p><p class="text-[9px] sm:text-[10px] text-gray-500 uppercase font-bold">Absent</p></div></div></div>';
-    });
-}
-
-// ==========================================
-// PAYMENT PAGE
-// ==========================================
-async function showPaymentPage() {
-    showLoading();
-    document.getElementById('homePage').style.display = 'none';
-    document.getElementById('attendancePage').style.display = 'none';
-    document.getElementById('attendancePage').classList.remove('flex');
-    document.getElementById('paymentPage').style.display = 'flex';
-    document.getElementById('paymentPage').classList.add('flex');
-    window.scrollTo(0, 0);
-
-    const monthlyFee = getMonthlyFee(currentStudent);
-    const cycleStarted = isCycleStarted(currentStudent);
-
-    document.getElementById('payName').textContent = currentStudent.name;
-    let infoText = 'Roll: ' + currentStudent.roll + ' | ' + currentStudent.session;
-    if (currentStudent.startDate) infoText += ' | Start: ' + currentStudent.startDate;
-    infoText += ' | Fee: ৳' + monthlyFee;
-    document.getElementById('payInfo').textContent = infoText;
-    document.getElementById('payMonthly').textContent = '৳' + monthlyFee;
-
-    const banner = document.getElementById('cycleNotStartedBanner');
-    if (!cycleStarted && banner) {
-        banner.classList.remove('hidden');
-        const startDate = new Date(currentStudent.startDate);
-        document.getElementById('cycleStartInfo').textContent = 'Billing starts on ' + startDate.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
-    } else if (banner) { banner.classList.add('hidden'); }
-
-    try {
-        const snap = await db.collection('payments').where('roll', '==', currentStudent.roll).get();
-        payRecords = [];
-        snap.forEach(d => payRecords.push(d.data()));
-        payRecords.sort((a, b) => (b.paymentDate || '').localeCompare(a.paymentDate || ''));
-        renderPayments();
-    } catch (err) {
-        document.getElementById('payTable').innerHTML = '<tr><td colspan="5" class="text-center py-6 text-red-500">Error</td></tr>';
-    }
-    hideLoading();
-    lucide.createIcons();
-}
-
-function renderPayments() {
-    const payTotalEl = document.getElementById('payTotal');
-    const payStatusEl = document.getElementById('payStatus');
-    const payStatusCardEl = document.getElementById('payStatusCard');
-    const payTableEl = document.getElementById('payTable');
-
-    if (!payTotalEl || !payStatusEl || !payStatusCardEl || !payTableEl) return;
-
-    const totalPaid = payRecords.reduce((s, p) => s + (p.amount || 0), 0);
-    payTotalEl.textContent = '৳' + totalPaid.toLocaleString();
-
-    const monthlyFee = getMonthlyFee(currentStudent);
-    const cycleStarted = isCycleStarted(currentStudent);
-
-    const curMonth = new Date().toISOString().substring(0, 7);
-    const monthPayments = payRecords.filter(p => p.month === curMonth);
-    const monthPaid = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
-
-    if (!cycleStarted) {
-        payStatusEl.textContent = 'NOT STARTED';
-        payStatusEl.className = 'text-lg font-black text-blue-600';
-        payStatusCardEl.className = 'bg-blue-50 border-blue-200 rounded-xl p-3 sm:p-4 text-center border-2 fade-in';
-    } else if (monthlyFee === 0) {
-        payStatusEl.textContent = 'NO FEE';
-        payStatusEl.className = 'text-xl font-black text-slate-500';
-        payStatusCardEl.className = 'bg-slate-50 border-slate-200 rounded-xl p-3 sm:p-4 text-center border-2 fade-in';
-    } else if (monthPaid === 0) {
-        payStatusEl.textContent = 'UNPAID';
-        payStatusEl.className = 'text-xl font-black text-red-600';
-        payStatusCardEl.className = 'bg-red-50 border-red-200 rounded-xl p-3 sm:p-4 text-center border-2 fade-in';
-    } else if (monthPaid >= monthlyFee) {
-        payStatusEl.textContent = 'PAID';
-        payStatusEl.className = 'text-xl font-black text-emerald-600';
-        payStatusCardEl.className = 'bg-emerald-50 border-emerald-200 rounded-xl p-3 sm:p-4 text-center border-2 fade-in';
-    } else {
-        payStatusEl.textContent = 'PARTIAL';
-        payStatusEl.className = 'text-xl font-black text-amber-600';
-        payStatusCardEl.className = 'bg-amber-50 border-amber-200 rounded-xl p-3 sm:p-4 text-center border-2 fade-in';
-    }
-
-    payTableEl.innerHTML = '';
-    if (payRecords.length === 0) {
-        payTableEl.innerHTML = '<tr><td colspan="5" class="text-center py-6 text-gray-400 text-sm">' + (!cycleStarted ? 'Cycle not started.' : 'No records.') + '</td></tr>';
-        return;
-    }
-
-    payRecords.forEach(p => {
-        const d = p.paymentDate ? new Date(p.paymentDate) : null;
-        const fDate = d ? d.toLocaleDateString('en', { month: 'short', day: 'numeric', year: '2-digit' }) : 'N/A';
-        let statusText = p.status || 'Paid';
-        let badge = 'bg-emerald-100 text-emerald-700';
-        if (p.feeType === 'Tuition Fee' && monthlyFee > 0 && p.amount < monthlyFee) { statusText = 'Partial'; badge = 'bg-amber-100 text-amber-700'; }
-        else if (p.status === 'Partial') { statusText = 'Partial'; badge = 'bg-amber-100 text-amber-700'; }
-        else if (p.status === 'Unpaid') { statusText = 'Unpaid'; badge = 'bg-red-100 text-red-700'; }
-        payTableEl.innerHTML += '<tr><td class="px-4 py-3 font-medium text-gray-800 whitespace-nowrap">' + (p.month || 'N/A') + '</td><td class="px-4 py-3 text-gray-500 whitespace-nowrap">' + fDate + '</td><td class="px-4 py-3 text-center font-bold text-gray-900 whitespace-nowrap">৳' + (p.amount || 0).toLocaleString() + '</td><td class="px-4 py-3 text-gray-500 whitespace-nowrap hidden sm:table-cell">' + (p.feeType || 'Tuition') + '</td><td class="px-4 py-3 text-center"><span class="px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-full ' + badge + ' whitespace-nowrap">' + statusText + '</span></td></tr>';
-    });
-}
-
-// ==========================================
-// PDF EXPORTS
-// ==========================================
-function exportAttPDF() {
-    if (!currentStudent || attRecords.length === 0) { alert('No data.'); return; }
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFontSize(20); doc.setFont('helvetica','bold');
-    doc.text('Ideal Coaching Center', 14, 20);
-    doc.setFontSize(12); doc.setFont('helvetica','normal');
-    doc.text('Attendance Report - ' + currentStudent.name + ' (' + currentStudent.roll + ')', 14, 28);
-    doc.autoTable({
-        startY: 35,
-        head: [['Date','Day','Status']],
-        body: attRecords.map(r => [r.date, new Date(r.date).toLocaleDateString('en',{weekday:'short'}), r.status]),
-        theme: 'striped',
-        didDrawPage: function() { doc.setFontSize(9); doc.setTextColor(100); doc.text('SD/- Shahrim Ahammed Shad <shad.iam.bd>', 14, doc.internal.pageSize.height - 10); }
-    });
-    doc.save('Attendance_' + currentStudent.roll + '.pdf');
-}
-
-function exportPayPDF() {
-    if (!currentStudent || payRecords.length === 0) { alert('No data.'); return; }
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.setFontSize(20); doc.setFont('helvetica','bold');
-    doc.text('Ideal Coaching Center', 14, 20);
-    doc.setFontSize(12); doc.setFont('helvetica','normal');
-    doc.text('Payment Report - ' + currentStudent.name + ' (' + currentStudent.roll + ')', 14, 28);
-    const total = payRecords.reduce((s,p) => s + (p.amount||0), 0);
-    doc.text('Total Paid: ' + total + ' BDT', 14, 35);
-    doc.autoTable({
-        startY: 42,
-        head: [['Month','Date','Amount','Type','Status']],
-        body: payRecords.map(p => [p.month||'N/A', p.paymentDate||'N/A', p.amount||0, p.feeType||'Tuition', p.status||'Paid']),
-        theme: 'striped',
-        didDrawPage: function() { doc.setFontSize(9); doc.setTextColor(100); doc.text('SD/- Shahrim Ahammed Shad <shad.iam.bd>', 14, doc.internal.pageSize.height - 10); }
-    });
-    doc.save('Payment_' + currentStudent.roll + '.pdf');
-}
-</script>
+<body>
+    <!-- Custom Cursor -->
+    <div id="customCursor" class="custom-cursor"></div>
+    <div id="cursorFollower" class="cursor-follower"></div>
+
+    <!-- Background Canvas & Orbs -->
+    <div class="bg-canvas-container">
+        <canvas id="particleCanvas"></canvas>
+        <div id="orb1" class="glow-orb orb-1"></div>
+        <div id="orb2" class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        <div class="glass-float-layer">
+            <div class="glass-card float-1"></div>
+            <div class="glass-card float-2"></div>
+            <div class="glass-card float-3"></div>
+        </div>
+        <div class="grid-overlay"></div>
+        <div class="vignette"></div>
+    </div>
+
+    <!-- Site Wrapper -->
+    <div class="site-wrapper">
+        <!-- Header -->
+        <header class="header animate-fade-down">
+            <div class="brand">
+                <div class="brand-mark">
+                    <div class="mark-dot"></div>
+                </div>
+                <div class="brand-title">SHAHARIM <span>AHAMMED SHAD</span></div>
+            </div>
+            <div class="header-status">
+                <div class="status-badge">
+                    <span class="pulse-dot"></span>
+                    In Progress
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="hero-section">
+            <div class="hero-content">
+                <div class="tag-wrapper animate-fade-up delay-1">
+                    <div class="subtle-tag">
+                        <svg class="sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>
+                        STEALTH DEVELOPMENT
+                    </div>
+                </div>
+                
+                <h1 class="hero-title animate-fade-up delay-2">
+                    Working<span class="title-dot">.</span>
+                </h1>
+                
+                <p class="hero-subtitle animate-fade-up delay-3">
+                    <span class="highlight-name">Shaharim Ahammed Shad</span> <span class="handle">&lt;shad.iam.bd&gt;</span>
+                </p>
+                
+                <p class="hero-poetic animate-fade-up delay-4">
+                    Something meaningful is taking shape behind the scenes.
+                </p>
+
+                <!-- Progress Block -->
+                <div class="progress-block animate-fade-up delay-5">
+                    <div class="progress-header">
+                        <div class="progress-label-group">
+                            <span class="progress-indicator-dot"></span>
+                            <span id="statusLabel" class="progress-label">SYSTEM INITIALIZING...</span>
+                        </div>
+                        <span id="progressPercentage" class="progress-counter">00%</span>
+                    </div>
+                    <div class="progress-bar-track">
+                        <div id="progressBarFill" class="progress-bar-fill">
+                            <div class="progress-glow-head"></div>
+                        </div>
+                    </div>
+                    <div class="progress-foot">
+                        <span>Currently in development...</span>
+                        <span id="liveClock" class="system-time">00:00:00 UTC</span>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="interactive-panel animate-fade-up delay-6">
+                    <button id="notifyTriggerBtn" class="notify-btn">
+                        <span class="btn-glow"></span>
+                        Request Early Access
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <button id="peekBtn" class="peek-btn">
+                        <svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                        View System Specs
+                    </button>
+                </div>
+
+                <!-- Stay Tuned -->
+                <div class="stay-tuned animate-fade-up delay-7">
+                    <div class="stay-tuned-line"></div>
+                    <span class="stay-tuned-text">Stay tuned</span>
+                    <div class="stay-tuned-line"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer animate-fade-up delay-8">
+            <div class="copyright">© <span id="currentYear">2026</span> SHAHARIM AHAMMED SHAD. ALL RIGHTS RESERVED.</div>
+            <div class="footer-right">
+                <a href="#privacy" class="footer-link">PRIVACY</a>
+                <span class="separator">•</span>
+                <a href="#contact" class="footer-link">ENQUIRIES</a>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="Twitter">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="GitHub">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Notify Modal -->
+    <div id="notifyModal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal-card">
+            <button id="closeNotifyModal" class="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-badge">EXCLUSIVE ACCESS</div>
+            <h2 class="modal-title">Be First to Experience It</h2>
+            <p class="modal-desc">Enter your contact email to receive an private invitation key as soon as publication commences.</p>
+            <form id="notifyForm" class="notify-form">
+                <div class="input-group">
+                    <input type="email" id="emailInput" class="custom-input" placeholder="Enter your email" required>
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        Request Invite
+                        <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                    </button>
+                </div>
+                <div id="formFeedback" class="form-feedback"></div>
+            </form>
+            <div class="modal-footer-note">🔒 Zero spam. Strictly confidential dispatch upon release.</div>
+        </div>
+    </div>
+
+    <!-- Specs Modal -->
+    <div id="specsModal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal-card specs-card">
+            <button id="closeSpecsModal" class="modal-close" aria-label="Close">&times;</button>
+            <div class="modal-badge">SYSTEM ARCHITECTURE</div>
+            <h2 class="modal-title">Project Telemetry & Specs</h2>
+            <p class="modal-desc">Technical parameters currently running in pre-launch environment.</p>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <span class="spec-label">MODULE STATUS</span>
+                    <span class="spec-val text-cyan">CORE_ACTIVE</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">DESIGN SYSTEM</span>
+                    <span class="spec-val">SHAD PROTOCOL v2.4</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">RENDERING ENGINE</span>
+                    <span class="spec-val">GPU PARTICLES / SHADER-CSS</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">SECURITY GRADE</span>
+                    <span class="spec-val text-gold">ZERO-KNOWLEDGE / STEALTH</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">EXPECTED PUBLISH</span>
+                    <span class="spec-val">Q3 2026 / IMMINENT</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">LATENCY / EDGE</span>
+                    <span class="spec-val">&lt; 12ms GLOBAL CDN</span>
+                </div>
+            </div>
+            <div class="specs-terminal">
+                <div><span class="term-prompt">&gt;</span> core.init_build_sequence() ... <span class="text-emerald">[OK]</span></div>
+                <div><span class="term-prompt">&gt;</span> compiling_assets.glass_shaders ... <span class="text-emerald">[OK]</span></div>
+                <div><span class="term-prompt">&gt;</span> integrity_check ... 100% SUCCESS</div>
+                <div><span class="term-prompt">&gt;</span> <span class="term-active">awaiting final publication sequence_</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
